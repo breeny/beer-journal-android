@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/beers"
+            android:icon="@drawable/beer"
+            android:title="Beers" />
+        <item
+            android:id="@+id/journals"
+            android:icon="@drawable/ic_book_black_48dp"
+            android:title="Journals" />
+        <item
+            android:id="@+id/discover"
+            android:icon="@drawable/ic_explore_black_48dp"
+            android:title="Discover" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_settings_grey_600_48dp"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send Feedback" />
+        </menu>
+    </item>
+
+</menu>

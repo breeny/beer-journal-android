@@ -1,5 +1,3 @@
 test:
   override:
-    - ./gradlew testDebug:
-      pwd:
-        BeerJournal
+    - cd BeerJournal && ./gradlew testDebug

@@ -1,0 +1,5 @@
+test:
+  override:
+    - ./gradlew test:
+      pwd:
+        BeerJournal/

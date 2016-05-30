@@ -25,6 +25,10 @@ public class Beer {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public double getRating() {
         return rating;
     }

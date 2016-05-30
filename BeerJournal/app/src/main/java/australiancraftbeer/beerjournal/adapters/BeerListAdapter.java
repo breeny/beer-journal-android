@@ -50,7 +50,21 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerLi
     }
 
     public void removeBeer(String beerId) {
-        
+        int beerIndex = -1;
+        int index = 0;
+
+        for (Beer beer : beers) {
+            if (beer.getId().equals(beerId)) {
+                beerIndex = index;
+                break;
+            }
+            index++;
+        }
+
+        if (beerIndex > -1) {
+            beers.remove(beerIndex);
+            notifyItemRemoved(beerIndex);
+        }
     }
 
     public class BeerListViewHolder extends RecyclerView.ViewHolder {

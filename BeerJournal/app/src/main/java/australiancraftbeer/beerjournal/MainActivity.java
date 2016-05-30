@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void beerIdRemoved(String beerId) {
-
+        adapter.removeBeer(beerId);
     }
 
 }

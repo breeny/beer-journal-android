@@ -74,8 +74,12 @@ public class EditBeerActivity extends AppCompatActivity {
             beer.setBrewery(name.getText().toString());
             beer.setRating(rating.getRating());
 
+
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference beerRef = database.getReference("beers").push();
+
+            beer.setId(beerRef.getKey());
+
             beerRef.setValue(beer);
 
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -2,4 +2,4 @@ test:
   override:
     - ./gradlew testDebug:
       pwd:
-        BeerJournal/
+        BeerJournal

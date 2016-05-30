@@ -1,4 +1,4 @@
 test:
   override:
     - cd BeerJournal && ./gradlew testDebug
-    - cp -r BeerJournal/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    - cp -r BeerJournal/build/reports/tests/debug/* $CIRCLE_TEST_REPORTS

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/journal"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="100%"
+        tools:text="My Sample Journal that goes over two lines" />
+
+</android.support.percent.PercentRelativeLayout>

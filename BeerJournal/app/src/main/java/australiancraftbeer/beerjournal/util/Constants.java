@@ -14,4 +14,5 @@ public class Constants {
     // Activity Codes
     public static int REGISTER = 100;
     public static int LOGIN = 101;
+    public static int PLACE_PICKER_REQUEST = 102;
 }

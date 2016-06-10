@@ -3,9 +3,18 @@ package australiancraftbeer.beerjournal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.logging.Level;
+
+import australiancraftbeer.beerjournal.model.User;
 import australiancraftbeer.beerjournal.util.Constants;
 
 /**
@@ -18,10 +27,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+
         if (requiresLogin() && !isLoggedIn()) {
             showLoginActivity();
         } else {
-            onLoggedIn();
+            if (User.currentUser() != null) {
+                onLoggedIn();
+            } else {
+                initialiseUser();
+            }
         }
     }
 
@@ -48,6 +63,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void initialiseUser() {
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User.initialise(dataSnapshot.getValue(User.class));
+                onLoggedIn();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("User retrieval", databaseError.getMessage());
+            }
+        });
     }
 
 }

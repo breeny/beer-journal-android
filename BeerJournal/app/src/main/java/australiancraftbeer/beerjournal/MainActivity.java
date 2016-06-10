@@ -75,13 +75,13 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected boolean requiresLogin() {
-        return false;
+        return true;
     }
 
     @Override
     protected void onLoggedIn() {
         eventEmitter = new BeerEventEmitter(this);
-        listEmitter = new UserBeerListEventEmitter("OpqQ1AFCAlTBy3pIQ6yxj3McTww2", this);
+        listEmitter = new UserBeerListEventEmitter(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
 
     }
 

@@ -1,5 +1,7 @@
 package australiancraftbeer.beerjournal.model;
 
+import java.util.Map;
+
 /**
  * Created by andbreen on 29/05/2016.
  */
@@ -17,6 +19,7 @@ public class User {
     }
 
     String id, name, email;
+    Map<String, String> journals;
 
     public void setId(String id) {
         this.id = id;
@@ -42,4 +45,11 @@ public class User {
         return email;
     }
 
+    public Map<String, String> getJournals() {
+        return journals;
+    }
+
+    public void setJournals(Map<String, String> journals) {
+        this.journals = journals;
+    }
 }

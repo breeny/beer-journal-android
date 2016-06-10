@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_edit_beer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -124,6 +123,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
+            app:cardCornerRadius="4dp"
+            android:animateLayoutChanges="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/journals_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Journals"
+                    android:textStyle="bold"
+                    android:paddingBottom="5dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
             app:cardCornerRadius="4dp">
 
             <RelativeLayout
@@ -134,7 +166,7 @@
                     android:id="@+id/additional_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Additional Beer Details"
+                    android:text="Location Details"
                     android:textStyle="bold"
                     android:paddingBottom="5dp"/>
 
@@ -144,11 +176,45 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/additional_title">
 
-                    <EditText
-                        android:id="@+id/hadAt"
+                    <Button
+                        android:id="@+id/findPlace"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Had at"/>
+                        android:text="Select to change to a nearby location"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:textColor="@android:color/tertiary_text_light"
+                        android:textAllCaps="false"
+                        android:textAlignment="viewStart"
+                        android:textStyle="normal"
+                        android:drawableLeft="@drawable/ic_location_on_grey_600_24dp"
+                        android:onClick="onSelectLocation"
+                        android:layout_marginBottom="5dp"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:id="@+id/mapWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/findPlace"
+                        android:layout_height="wrap_content">
+                        <fragment
+
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:id="@+id/map"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"/>
+                        <CheckBox
+                            android:id="@+id/make_public"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Make location public?"
+                            android:checked="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Public locations will be shared with other users in the area through the discover screen."/>
+                    </LinearLayout>
+
 
                 </RelativeLayout>
 
@@ -158,4 +224,4 @@
     </LinearLayout>
 
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

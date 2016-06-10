@@ -56,4 +56,18 @@ public class Beer {
     public void setHadTime(Date hadTime) {
         this.hadTime = hadTime;
     }
+
+    Location location;
+
+    public Date getHadTime() {
+        return hadTime;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

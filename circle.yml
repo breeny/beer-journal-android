@@ -1,6 +1,6 @@
 machine:
   java:
-    version: 1.8.0
+    version: openjdk8
 test:
   override:
     - cd BeerJournal && ./gradlew testDebug

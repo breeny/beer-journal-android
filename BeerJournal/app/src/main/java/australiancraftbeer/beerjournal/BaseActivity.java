@@ -29,6 +29,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
 
+        checkIfLoginIsRequired();
+    }
+
+    protected void checkIfLoginIsRequired() {
         if (requiresLogin() && !isLoggedIn()) {
             showLoginActivity();
         } else {

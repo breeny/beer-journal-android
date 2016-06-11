@@ -1,4 +1,4 @@
-package australiancraftbeer.beerjournal;
+package australiancraftbeer.beerjournal.util;
 
 import org.junit.Test;
 

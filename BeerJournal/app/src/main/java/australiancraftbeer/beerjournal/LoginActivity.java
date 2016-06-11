@@ -1,31 +1,28 @@
 package australiancraftbeer.beerjournal;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import javax.inject.Inject;
 
 import australiancraftbeer.beerjournal.model.User;
+import australiancraftbeer.beerjournal.network.interfaces.IAuthenticationCallback;
+import australiancraftbeer.beerjournal.network.interfaces.IAuthenticationProvider;
 import australiancraftbeer.beerjournal.util.Constants;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements IAuthenticationCallback {
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    @Inject
+    IAuthenticationProvider authProvider;
+
     EditText password, email;
     Button onLogin;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,33 +39,32 @@ public class LoginActivity extends AppCompatActivity {
                 onLogin();
             }
         });
+
+        ((Application) getApplication()).getAuthComponent().inject(this);
+        authProvider.setCallback(this);
     }
 
     void onLogin() {
-        auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseDatabase.getInstance().getReference("users/" + auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            User user = dataSnapshot.getValue(User.class);
-                            User.initialise(user);
-                            setResult(Constants.SUCCESS);
-                            finish();
-                        }
+        progress = new ProgressDialog(this);
+        progress.setIndeterminate(true);
+        progress.setMessage("Logging in");
+        progress.setCancelable(false);
+        progress.show();
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+        authProvider.logIn(email.getText().toString(), password.getText().toString());
+    }
 
-                        }
-                    });
-                } else {
-                    //Handle error
-                    Log.e("Login", task.getException().getMessage());
-                }
-            }
-        });
+    @Override
+    public void onLoginCallback(User user) {
+        User.initialise(user);
+        progress.dismiss();
+        setResult(Constants.SUCCESS);
+        finish();
+    }
+
+    @Override
+    public void onRegisterCallback() {
+
     }
 
     public void onRegister(View view) {

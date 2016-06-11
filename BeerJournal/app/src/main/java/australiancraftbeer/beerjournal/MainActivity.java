@@ -26,10 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
+import javax.inject.Inject;
+
 import australiancraftbeer.beerjournal.adapters.BeerListAdapter;
 import australiancraftbeer.beerjournal.model.Beer;
+import australiancraftbeer.beerjournal.model.User;
+import australiancraftbeer.beerjournal.network.AuthenticationProvider;
 import australiancraftbeer.beerjournal.network.BeerEventEmitter;
 import australiancraftbeer.beerjournal.network.UserBeerListEventEmitter;
+import australiancraftbeer.beerjournal.network.interfaces.IAuthenticationProvider;
 import australiancraftbeer.beerjournal.network.interfaces.IBeerEventListener;
 import australiancraftbeer.beerjournal.network.interfaces.IBeerListEventListener;
 
@@ -40,6 +45,9 @@ public class MainActivity extends BaseActivity
     UserBeerListEventEmitter listEmitter;
     RecyclerView recyclerView;
     BeerListAdapter adapter;
+
+    @Inject
+    IAuthenticationProvider provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,8 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ((Application) getApplication()).getAuthComponent().inject(this);
 
     }
 
@@ -123,19 +133,11 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        if (id == R.id.logout) {
+            provider.logOut();
+            User.initialise(null);
+            checkIfLoginIsRequired();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

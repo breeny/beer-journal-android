@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity
     UserBeerListEventEmitter listEmitter;
     RecyclerView recyclerView;
     BeerListAdapter adapter;
+    
 
     @Inject
     IAuthenticationProvider provider;

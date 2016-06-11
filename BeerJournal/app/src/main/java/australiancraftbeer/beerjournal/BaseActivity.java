@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         checkIfLoginIsRequired();
     }
 
-    protected void checkIfLoginIsRequired() {
+    void checkIfLoginIsRequired() {
         if (requiresLogin() && !isLoggedIn()) {
             showLoginActivity();
         } else {

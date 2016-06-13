@@ -7,6 +7,6 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
 test:
   override:
-    - echo $DEVELOPMENT_GOOGLE_JSON > /home/ubuntu/beer-journal-android/BeerJournal/app/src/debug/google-services.json
+    - echo $DEVELOPMENT_GOOGLE_JSON > ./BeerJournal/app/src/debug/google-services.json
     - cd BeerJournal && ./gradlew testDebug
     - cp -r BeerJournal/build/reports/tests/debug/* $CIRCLE_TEST_REPORTS
